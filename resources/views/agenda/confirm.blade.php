@@ -9,7 +9,7 @@
 
 <h1>¿Deseas eliminar el registro de {{$Agenda->nombres.' '.$Agenda->apellidos}}?</h1>
 
-</div>
+
 <form method="POST" action="{{ route('agenda.destroy',$Agenda->id)}}">
     @method('DELETE')
     @csrf
@@ -21,6 +21,6 @@
 <i class="fas fa-ban"></i> Cancelar
 </a>
 </form>
-
+</div>
 @include('plantilla.footer',['container'=>'container'])
 @endsection

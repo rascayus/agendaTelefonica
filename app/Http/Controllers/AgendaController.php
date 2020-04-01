@@ -46,7 +46,7 @@ class AgendaController extends Controller
      */
     public function store(Request $request)
     {
-        $Agenda = new agenda;
+       /* $Agenda = new agenda;
         $Agenda ->nombres = $request->nombres;
         $Agenda ->apellidos = $request->apellidos;
         $Agenda ->telefono = $request->telefono;
@@ -57,7 +57,8 @@ class AgendaController extends Controller
         $Agenda ->departamento = $request->departamento;
         $Agenda ->salario = $request->salario;
         $Agenda ->fechadenacimiento = $request->fechadenacimiento;
-        $Agenda->save();
+        $Agenda->save();*/ //Metodo usado en el tutorial que es muy farragoso
+        Agenda::create($request->all()); //Metodo mas eficiente
         return redirect()->route('agenda.index')->with('datos','Registro guardado correctamente');
     }
 
@@ -95,7 +96,7 @@ class AgendaController extends Controller
     public function update(Request $request, $id)
     {
         $Agenda = Agenda::findOrFail($id);
-        $Agenda ->nombres = $request->nombres;
+      /*  $Agenda ->nombres = $request->nombres;
         $Agenda ->apellidos = $request->apellidos;
         $Agenda ->telefono = $request->telefono;
         $Agenda ->celular = $request->celular;
@@ -105,7 +106,8 @@ class AgendaController extends Controller
         $Agenda ->departamento = $request->departamento;
         $Agenda ->salario = $request->salario;
         $Agenda ->fechadenacimiento = $request->fechadenacimiento;
-        $Agenda->save();
+        $Agenda->save();*/  //Otro metodo ineficiente
+        $Agenda->update($request->all());
         return redirect()->route('agenda.index')->with('datos','Registro actualizado correctamente');
     
     }
