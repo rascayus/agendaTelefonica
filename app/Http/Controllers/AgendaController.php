@@ -7,14 +7,25 @@ use App\Agenda;
 
 class AgendaController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth'); //A todos
+      //  $this->middleware('auth',['only'=>'create']);
+      //  $this->middleware('auth')->only('create'); Son equivalentes
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('agenda.index');
+        $buscar = $request->get('buscarpor');
+        $tipo = $request->get('tipo');
+
+        $Agenda = Agenda::buscarpor($tipo, $buscar)->paginate(5);
+        return view('agenda.index', compact('Agenda'));
     }
 
     /**
@@ -58,7 +69,8 @@ class AgendaController extends Controller
      */
     public function show($id)
     {
-        //
+        $Agenda = Agenda::findOrFail($id);
+        return view('agenda.show', compact('Agenda'));
     }
 
     /**
@@ -69,7 +81,8 @@ class AgendaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $Agenda = Agenda::findOrFail($id);
+        return view('agenda.edit', compact('Agenda'));
     }
 
     /**
@@ -81,7 +94,20 @@ class AgendaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $Agenda = Agenda::findOrFail($id);
+        $Agenda ->nombres = $request->nombres;
+        $Agenda ->apellidos = $request->apellidos;
+        $Agenda ->telefono = $request->telefono;
+        $Agenda ->celular = $request->celular;
+        $Agenda ->sexo = $request->sexo;
+        $Agenda ->email = $request->email;
+        $Agenda ->posicion = $request->posicion;
+        $Agenda ->departamento = $request->departamento;
+        $Agenda ->salario = $request->salario;
+        $Agenda ->fechadenacimiento = $request->fechadenacimiento;
+        $Agenda->save();
+        return redirect()->route('agenda.index')->with('datos','Registro actualizado correctamente');
+    
     }
 
     /**
@@ -92,6 +118,14 @@ class AgendaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Agenda = Agenda::findOrFail($id);
+        $Agenda->delete();
+        return redirect()->route('agenda.index')->with('datos','Registro eliminado correctamente');
+
+
+    }
+    public function confirm($id){
+        $Agenda = Agenda::findOrFail($id);
+        return view('agenda.confirm', compact('Agenda'));
     }
 }

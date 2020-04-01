@@ -196,7 +196,9 @@ footer {
       background-color: #e9ecef00;
  }
 
-
+td .btn{
+    width: 100%;
+}
 
 #icono {
   width: 20%;
@@ -206,7 +208,7 @@ footer {
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 </head>
-<body> 
+<body>
 
     @yield('contenido')
 
